@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- single für wieviel items aktiviert sein können -->
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/pinnwand"
+            android:title="Dorf Pinnwand"></item>
+        <item
+            android:id="@+id/veranstaltung"
+            android:title="Veranstaltungen">
+
+        </item>
+        <item
+            android:id="@+id/chat"
+            android:title="Dorfchat">
+
+        </item>
+        <item
+            android:id="@+id/werbung1"
+            android:title="Werbung">
+
+        </item>
+        <item
+            android:id="@+id/angebote"
+            android:title="Angebote">
+
+        </item>
+
+
+    </group>
+
+</menu>
