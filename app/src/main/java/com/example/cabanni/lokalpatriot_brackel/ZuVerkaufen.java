@@ -21,13 +21,16 @@ public class ZuVerkaufen extends Fragment {
     RecyclerView.LayoutManager rvLayoutManager;
     View view;
     Activity activity;
+    Bundle bundle;
+    String result;
+
 
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        BackgroundTask backgroundTask = new BackgroundTask();
-        backgroundTask.execute();
+
+        bundle = getArguments();
     }
 
 
@@ -44,6 +47,7 @@ public class ZuVerkaufen extends Fragment {
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         rvLayoutManager = new LinearLayoutManager(activity);
         recyclerView.setLayoutManager(rvLayoutManager);
+        PinnwandConnecter.sendToServer(bundle.getString("ort"), bundle.getString("kategorie"));
         return view;
 
     }
@@ -56,4 +60,5 @@ public class ZuVerkaufen extends Fragment {
         // rvAdapter = new RvAdapter();
         // recyclerView.setAdapter(rvAdapter);
     }
+
 }

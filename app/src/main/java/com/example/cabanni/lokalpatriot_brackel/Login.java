@@ -47,6 +47,9 @@ public class Login extends AppCompatActivity implements
         if (Build.VERSION.SDK_INT > 21) {
             toolbar.setElevation(25);
         }
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
         mSignInButton = (SignInButton) findViewById(R.id.sign_in_button);
         mSignInButton.setOnClickListener(this);
 

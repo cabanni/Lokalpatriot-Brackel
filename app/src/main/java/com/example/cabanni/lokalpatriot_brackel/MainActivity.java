@@ -2,6 +2,8 @@ package com.example.cabanni.lokalpatriot_brackel;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -68,47 +70,53 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         }
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        //firebase
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
-                .addApi(Auth.GOOGLE_SIGN_IN_API)
-                .build();
-        mFirebaseAuth = FirebaseAuth.getInstance();
-        mFirebaseUser = mFirebaseAuth.getCurrentUser();
 
-        // Initialize Firebase Auth
-        mFirebaseAuth = FirebaseAuth.getInstance();
-        mFirebaseUser = mFirebaseAuth.getCurrentUser();
+        if (checkNetwork()) {
 
-        if (mFirebaseUser == null) {
-            // Not signed in, launch the Sign In activity
-            startActivity(new Intent(this, Login.class));
-            finish();
-            return;
-        } else {
+            //firebase
+            mGoogleApiClient = new GoogleApiClient.Builder(this)
+                    .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
+                    .addApi(Auth.GOOGLE_SIGN_IN_API)
+                    .build();
+            mFirebaseAuth = FirebaseAuth.getInstance();
+            mFirebaseUser = mFirebaseAuth.getCurrentUser();
 
-            // bundle.putString("mUsername", mUsername);
-            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-            if (user != null) {
-                for (UserInfo profile : user.getProviderData()) {
-                    // Id of the provider (ex: google.com)
-                    String providerId = profile.getProviderId();
+            // Initialize Firebase Auth
+            mFirebaseAuth = FirebaseAuth.getInstance();
+            mFirebaseUser = mFirebaseAuth.getCurrentUser();
 
-                    // UID specific to the provider
-                    String uid = profile.getUid();
+            if (mFirebaseUser == null) {
+                // Not signed in, launch the Sign In activity
+                startActivity(new Intent(this, Login.class));
+                finish();
+                return;
+            } else {
 
-                    // Name, email address, and profile photo Url
-                    String name = profile.getDisplayName();
-                    String email = profile.getEmail();
-                    Uri photoUrl = profile.getPhotoUrl();
-                    bundle.putString("mUsername", name);
-                    bundle.putString("email", email);
-                    bundle.putString("photoUrl", photoUrl.toString());
+                // bundle.putString("mUsername", mUsername);
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                if (user != null) {
+                    for (UserInfo profile : user.getProviderData()) {
+                        // Id of the provider (ex: google.com)
+                        String providerId = profile.getProviderId();
+
+                        // UID specific to the provider
+                        String uid = profile.getUid();
+
+                        // Name, email address, and profile photo Url
+                        String name = profile.getDisplayName();
+                        String email = profile.getEmail();
+                        Uri photoUrl = profile.getPhotoUrl();
+                        bundle.putString("mUsername", name);
+                        bundle.putString("email", email);
+                        bundle.putString("photoUrl", photoUrl.toString());
+                    }
+                    ;
                 }
-                ;
+
+
             }
-
-
+        } else {
+            Toast.makeText(getApplicationContext(), "Internet ist nicht verfügbar", Toast.LENGTH_LONG).show();
         }
 
 
@@ -143,6 +151,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                         fragmentTransaction.replace(R.id.root_layout, zuVerkaufen);
                         fragmentTransaction.addToBackStack(null);
 
+                        bundle.putString("kategorie", "zu verkaufen");
+                        zuVerkaufen.setArguments(bundle);
+
                         fragmentTransaction.commit();
 
                         break;
@@ -170,6 +181,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         if (id == R.id.settings) {
             return true;
         }
+
+
         if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
@@ -194,4 +207,16 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         Log.d(TAG, "onConnectionFailed:" + connectionResult);
         Toast.makeText(this, "Google Play Services error.", Toast.LENGTH_SHORT).show();
     }
+
+    /**
+     * prüft Internetverfügbarkeit
+     *
+     * @return
+     */
+    public boolean checkNetwork() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        return networkInfo != null && networkInfo.isConnectedOrConnecting();
+    }
+
 }
