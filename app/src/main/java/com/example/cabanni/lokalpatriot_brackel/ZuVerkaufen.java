@@ -11,6 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
 /**
  * Created by cabanni on 24.12.16.
  */
@@ -23,12 +29,36 @@ public class ZuVerkaufen extends Fragment {
     Activity activity;
     Bundle bundle;
     String result;
+    ArrayList<Pinntext> arrayList = new ArrayList<Pinntext>();
 
 
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        result = PinnwandConnecter.sendToServer(bundle.getString("ort"), bundle.getString("kategorie")); // holt den Json String vom Server
+
+        try {
+            JSONObject jsonObject = new JSONObject(result);
+            JSONArray jsonArray = jsonObject.getJSONArray("json_response"); // json_response ist der Name des JsonArrays im php-script
+
+            int count = 0;
+
+
+            while (count < jsonArray.length()) {
+
+                JSONObject jo = jsonArray.getJSONObject(count);
+                count++;
+                Pinntext pinntext = new Pinntext(jo.getString("text"), jo.getString("userName"), jo.getString("userMail"),
+                        jo.getInt("userPunkte"), jo.getString("date"));
+                arrayList.add(pinntext);
+
+
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
 
         bundle = getArguments();
     }
@@ -47,7 +77,7 @@ public class ZuVerkaufen extends Fragment {
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         rvLayoutManager = new LinearLayoutManager(activity);
         recyclerView.setLayoutManager(rvLayoutManager);
-        PinnwandConnecter.sendToServer(bundle.getString("ort"), bundle.getString("kategorie"));
+
         return view;
 
     }

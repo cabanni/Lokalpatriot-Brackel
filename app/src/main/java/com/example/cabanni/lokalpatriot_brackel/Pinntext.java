@@ -14,18 +14,19 @@ public class Pinntext {
     private Integer points;
 
     /**
+     *
      * @param text
      * @param user
      * @param mail
      * @param points
-     * @param formatedDate
+     * @param mysqlDate
      */
-    public Pinntext(String text, String user, String mail, Integer points, String formatedDate) {
+    public Pinntext(String text, String user, String mail, Integer points, String mysqlDate) {
         this.text = text;
         this.user = user;
         this.mail = mail;
         this.points = points;
-        this.formatedDate = formatedDate;
+        this.mysqlDate = mysqlDate;
     }
 
 
