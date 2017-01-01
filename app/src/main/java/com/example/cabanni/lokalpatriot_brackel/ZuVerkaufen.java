@@ -88,9 +88,7 @@ public class ZuVerkaufen extends Fragment {
         view = inflater.inflate(R.layout.fragment_zu_verkaufen, container, false);
         activity = getActivity(); // holt den context der Activity
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
-        myRecyclerViewAdapter = new MyRecyclerViewAdapter(arrayList);
-        recyclerView.setAdapter(myRecyclerViewAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
 
 
         return view;
@@ -190,13 +188,16 @@ public class ZuVerkaufen extends Fragment {
                     Pinntext pinntext = new Pinntext(jo.getString("text"), jo.getString("userName"), jo.getString("userMail"),
                             jo.getInt("userPunkte"), jo.getString("date"));
                     arrayList.add(pinntext);
-                    L.m(pinntext.getText());
 
 
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+            myRecyclerViewAdapter = new MyRecyclerViewAdapter(arrayList);
+            recyclerView.setAdapter(myRecyclerViewAdapter);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
 
 
         }
