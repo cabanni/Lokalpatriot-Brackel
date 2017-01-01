@@ -18,15 +18,40 @@ import java.net.URLEncoder;
  */
 
 public class PinnwandConnecter {
-    protected static String result;
 
+
+    private String result;
+
+    protected static String getTextFromInputStream(InputStream inputStream) {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+        StringBuilder stringBuilder = new StringBuilder();
+
+        String line;
+
+        try {
+            while ((line = bufferedReader.readLine()) != null) {
+                stringBuilder.append(line);
+                // stringBuilder.append("\n");
+            }
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return stringBuilder.toString().trim();
+    }
+
+    public String getResult() {
+        return result;
+    }
 
     /**
      * @param ort
      * @param kategorie
      * @return String aus Datenbankabfrage.
      */
-    public static String sendToServer(final String ort, final String kategorie) {
+    public void sendToServer(final String ort, final String kategorie) {
+
         new Thread(new Runnable() {
 
             @Override
@@ -59,27 +84,8 @@ public class PinnwandConnecter {
 
             }
         }).start();
-        return result;
 
 
-    }
 
-    protected static String getTextFromInputStream(InputStream inputStream) {
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-        StringBuilder stringBuilder = new StringBuilder();
-
-        String line;
-
-        try {
-            while ((line = bufferedReader.readLine()) != null) {
-                stringBuilder.append(line);
-                // stringBuilder.append("\n");
-            }
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return stringBuilder.toString().trim();
     }
 }

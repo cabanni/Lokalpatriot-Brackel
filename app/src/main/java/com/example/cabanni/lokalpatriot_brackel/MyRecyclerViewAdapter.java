@@ -1,11 +1,12 @@
 package com.example.cabanni.lokalpatriot_brackel;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 /**
  * Created by cabanni on 27.12.16.
@@ -15,32 +16,40 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
 
     LayoutInflater inflater;
+    ArrayList<Pinntext> data = new ArrayList<Pinntext>();
 
-    public MyRecyclerViewAdapter(Context context) {
+    public MyRecyclerViewAdapter(ArrayList data) {
+        this.data = data;
 
-
-        inflater = LayoutInflater.from(context);
     }
+
 
     @Override
     public MyRecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = inflater.inflate(R.layout.pinnwand_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.pinnwand_item, parent, false);
 
         MyRecyclerViewHolder viewHolder = new MyRecyclerViewHolder(view);
 
-        return null;
+        return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(MyRecyclerViewHolder holder, int position) {
+
+        Pinntext current = data.get(position);
+        holder.textLang.setText(current.getText());
+        holder.user.setText(current.getUser());
+        holder.datum.setText(current.getMysqlDate());
+
+
 
     }
 
 
     @Override
     public int getItemCount() {
-        return 0;
+        return data.size();
     }
 
     class MyRecyclerViewHolder extends RecyclerView.ViewHolder {
