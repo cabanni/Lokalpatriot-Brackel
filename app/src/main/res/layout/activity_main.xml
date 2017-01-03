@@ -32,7 +32,9 @@
             <RelativeLayout
                 android:id="@+id/root_layout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"></RelativeLayout>
+                android:layout_height="match_parent">
+
+            </RelativeLayout>
 
         </FrameLayout>
 
@@ -51,7 +53,7 @@
                 android:id="@+id/nav_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="18dp"
+
                 app:menu="@menu/drawer_menu" />
 
         </RelativeLayout>

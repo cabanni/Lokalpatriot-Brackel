@@ -1,5 +1,7 @@
 package com.example.cabanni.lokalpatriot_brackel;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.ConnectivityManager;
@@ -28,6 +30,8 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
+
+import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
     private Toolbar toolbar;
@@ -71,9 +75,17 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-        if (checkNetwork()) {
+        //AlarmManager
+        AlarmManager alarmManager = (AlarmManager) MainActivity.this.getSystemService(MainActivity.this.ALARM_SERVICE);
+        Intent startServiceIntent = new Intent(MainActivity.this, NotificationService.class);
+        PendingIntent pendingIntent = PendingIntent.getService(MainActivity.this, 0, startServiceIntent, 0);
+        Calendar calender = Calendar.getInstance();
+        calender.setTimeInMillis(System.currentTimeMillis() + 1000 * 60 * 10);
+        alarmManager.setRepeating(AlarmManager.RTC, calender.getTimeInMillis(),
+                (1000 * 60 * 10), pendingIntent);
 
-            //firebase
+        //firebase
+        if (checkNetwork()) {
             mGoogleApiClient = new GoogleApiClient.Builder(this)
                     .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
                     .addApi(Auth.GOOGLE_SIGN_IN_API)
@@ -91,7 +103,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                 finish();
                 return;
             } else {
-
                 // bundle.putString("mUsername", mUsername);
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 if (user != null) {
@@ -112,11 +123,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                     }
                     ;
                 }
-
-
             }
         } else {
-            Toast.makeText(getApplicationContext(), "Internet ist nicht verfügbar", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Internet ist nicht verfügbar.", Toast.LENGTH_LONG).show();
         }
 
 
@@ -127,7 +136,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                 R.string.drawertaggle_auf, R.string.drawertaggle_zu);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
 
-        //initialFragment
+        //StartFragment
+        if (savedInstanceState != null) {
+            return;
+        }
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
 
@@ -146,13 +158,13 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                 switch (item.getItemId()) {
 
                     case R.id.pinnwand: {
-                        Fragment zuVerkaufen = new ZuVerkaufen();
+                        Fragment pinnwandRootFragment = new PinnwandRootFragment();
                         fragmentTransaction = fragmentManager.beginTransaction();
-                        fragmentTransaction.replace(R.id.root_layout, zuVerkaufen);
+                        fragmentTransaction.replace(R.id.root_layout, pinnwandRootFragment);
                         fragmentTransaction.addToBackStack(null);
 
-                        bundle.putString("kategorie", "zu verkaufen");
-                        zuVerkaufen.setArguments(bundle);
+
+                        pinnwandRootFragment.setArguments(bundle);
 
                         fragmentTransaction.commit();
 

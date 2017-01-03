@@ -22,17 +22,17 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.io.PrintStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 
 /**
  * Created by cabanni on 24.12.16.
  */
 
-public class ZuVerkaufen extends Fragment {
+public class FragmentZuVerkaufen extends Fragment {
     public Bundle bundle;
     RecyclerView recyclerView;
     MyRecyclerViewAdapter myRecyclerViewAdapter;
@@ -40,11 +40,12 @@ public class ZuVerkaufen extends Fragment {
     View view;
     Activity activity;
     String result;
-    String ort;
-    String kategorie;
+    String ort = Finals.ORT;
+    String kategorie = Finals.KATEGORIE_ZU_VERKAUFEN;
     ArrayList<Pinntext> arrayList = new ArrayList<Pinntext>();
     JSONObject jsonObject;
     JSONArray jsonArray;
+
 
 
     @Override
@@ -53,12 +54,6 @@ public class ZuVerkaufen extends Fragment {
 
         // getActivity().requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 
-
-
-
-
-
-
     }
 
 
@@ -66,16 +61,12 @@ public class ZuVerkaufen extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         bundle = getArguments();
-        this.ort = bundle.getString("ort");
-        this.kategorie = bundle.getString("kategorie");
+
+
         result = new String();
         // pinnwandConnecter.sendToServer(bundle.getString("ort"), bundle.getString("kategorie")); // holt den Json String vom Server
         BackgroundTask backgroundTask = new BackgroundTask();
         backgroundTask.execute();
-
-
-
-
 
     }
 
@@ -88,21 +79,10 @@ public class ZuVerkaufen extends Fragment {
         view = inflater.inflate(R.layout.fragment_zu_verkaufen, container, false);
         activity = getActivity(); // holt den context der Activity
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
-
-
-
         return view;
 
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-
-
-        // rvAdapter = new RvAdapter();
-        // recyclerView.setAdapter(rvAdapter);
-    }
 
     public class BackgroundTask extends AsyncTask<Void, Void, Void> {
 
@@ -119,20 +99,25 @@ public class ZuVerkaufen extends Fragment {
 
             try {
                 // Post Variablen vorbereiten
-                String textParam = "ort=" + URLEncoder.encode(ort, "UTF-8") + "&kategorie" + URLEncoder.encode(kategorie, "UTF-8");
-                URL url = new URL(com.example.cabanni.lokalpatriot_brackel.BackgroundTask.stringUrl);
+                //  String textParam = "ort=" + URLEncoder.encode(ort, "UTF-8") + "&&kategorie" + URLEncoder.encode(kategorie, "UTF-8");
+                URL url = new URL(Finals.url);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
                 httpURLConnection.setDoOutput(true);
                 httpURLConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-                httpURLConnection.setFixedLengthStreamingMode(textParam.getBytes().length);
+                //   httpURLConnection.setFixedLengthStreamingMode(textParam.getBytes().length);
 
                 // Post Variablen zum Server schicken
                 OutputStreamWriter outputStreamWriter = new OutputStreamWriter(httpURLConnection.getOutputStream());
-                outputStreamWriter.write(textParam);
+                // outputStreamWriter.write(textParam);
+
+                PrintStream ps = new PrintStream(httpURLConnection.getOutputStream());
+                // send your parameters to your site
+                ps.print("ort=" + ort);
+                ps.print("&kategorie=" + kategorie);
                 outputStreamWriter.flush();
                 outputStreamWriter.close();
 
-
+                //Antwort zurück bekommen
                 InputStream inputStream = httpURLConnection.getInputStream();
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
                 StringBuilder stringBuilder = new StringBuilder();
