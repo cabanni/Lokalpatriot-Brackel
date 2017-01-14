@@ -22,7 +22,7 @@ public class BootCompleteReciever extends BroadcastReceiver {
             Intent startServiceIntent = new Intent(context, NotificationService.class);
             PendingIntent pendingIntent = PendingIntent.getService(context, 0, startServiceIntent, 0);
             Calendar calender = Calendar.getInstance();
-            calender.setTimeInMillis(System.currentTimeMillis() + 1000 * 60 * 10);
+            calender.setTimeInMillis(System.currentTimeMillis()); // ohne Verzögerung
             alarmManager.setRepeating(AlarmManager.RTC, calender.getTimeInMillis(),
                     (1000 * 60 * 10), pendingIntent);
 

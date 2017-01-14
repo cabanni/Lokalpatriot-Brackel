@@ -27,7 +27,7 @@ public class StartFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_start_fragment, container, false);
-        textView = (TextView) view.findViewById(R.id.textView);
+        textView = (TextView) view.findViewById(R.id.startFragmentTextView);
         Bundle bundle = this.getArguments();
         mUserName = bundle.getString("mUsername");
         textView.setText(this.mUserName);

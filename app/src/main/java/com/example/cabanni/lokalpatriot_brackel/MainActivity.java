@@ -7,6 +7,7 @@ import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.PersistableBundle;
@@ -29,8 +30,14 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserInfo;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
@@ -48,6 +55,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     private String mPhotoUrl;
     private Bundle bundle;
     private String ort = "brackel";
+    private String kategorie = Finals.KATEGORIE_ZU_VERKAUFEN;
+    private String gmail = new String();
 
 
     public String getmUsername() {
@@ -65,6 +74,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
         bundle = new Bundle();
         bundle.putString("ort", this.ort);
+        bundle.putString("kategorie", kategorie);
 
         //Toolbar
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -75,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-        //AlarmManager
+        //AlarmManager starten eines Service nach reboot, ohne app-start
         AlarmManager alarmManager = (AlarmManager) MainActivity.this.getSystemService(MainActivity.this.ALARM_SERVICE);
         Intent startServiceIntent = new Intent(MainActivity.this, NotificationService.class);
         PendingIntent pendingIntent = PendingIntent.getService(MainActivity.this, 0, startServiceIntent, 0);
@@ -106,21 +116,28 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                 // bundle.putString("mUsername", mUsername);
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 if (user != null) {
-                    for (UserInfo profile : user.getProviderData()) {
+                    user.getProviderData();
                         // Id of the provider (ex: google.com)
-                        String providerId = profile.getProviderId();
+                    String providerId = user.getProviderId();
 
                         // UID specific to the provider
-                        String uid = profile.getUid();
+                    String uid = user.getUid();
 
                         // Name, email address, and profile photo Url
-                        String name = profile.getDisplayName();
-                        String email = profile.getEmail();
-                        Uri photoUrl = profile.getPhotoUrl();
-                        bundle.putString("mUsername", name);
-                        bundle.putString("email", email);
+                    mUsername = user.getDisplayName();
+                    this.gmail = user.getEmail();
+                    Uri photoUrl = user.getPhotoUrl();
+                    //User und gmail adresse in der Datenbank eintragen
+
+
+                    bundle.putString("mUsername", mUsername);
+                    bundle.putString("email", this.gmail);
                         bundle.putString("photoUrl", photoUrl.toString());
-                    }
+                    MainActivity.BackgroundTask backgroundTask = new MainActivity.BackgroundTask();
+                    backgroundTask.execute();
+
+
+
                     ;
                 }
             }
@@ -157,7 +174,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
                 switch (item.getItemId()) {
 
-                    case R.id.pinnwand: {
+                    case R.id.pinnwand:
                         Fragment pinnwandRootFragment = new PinnwandRootFragment();
                         fragmentTransaction = fragmentManager.beginTransaction();
                         fragmentTransaction.replace(R.id.root_layout, pinnwandRootFragment);
@@ -169,7 +186,14 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                         fragmentTransaction.commit();
 
                         break;
-                    }
+                    case R.id.anzeige_aufgeben_nav:
+                        Fragment anzeigeAufgebenFragment = new FragmentAnzeigeAufgeben();
+                        fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentTransaction.replace(R.id.root_layout, anzeigeAufgebenFragment);
+                        fragmentTransaction.addToBackStack(null);
+                        anzeigeAufgebenFragment.setArguments(bundle);
+                        fragmentTransaction.commit();
+
 
                 }
                 drawerLayout.closeDrawers();
@@ -230,5 +254,70 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
         return networkInfo != null && networkInfo.isConnectedOrConnecting();
     }
+
+
+    public class BackgroundTask extends AsyncTask<Void, Void, Void> {
+
+        public String stringUrl = Finals.urlPinnwandAbfrage;
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+            try {
+                // Post Variablen vorbereiten
+                //  String textParam = "ort=" + URLEncoder.encode(ort, "UTF-8") + "&&kategorie" + URLEncoder.encode(kategorie, "UTF-8");
+                URL url = new URL(Finals.URL_USER_INSERT);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                httpURLConnection.setDoOutput(true);
+                httpURLConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                //   httpURLConnection.setFixedLengthStreamingMode(textParam.getBytes().length);
+
+                // Post Variablen zum Server schicken
+                OutputStreamWriter outputStreamWriter = new OutputStreamWriter(httpURLConnection.getOutputStream());
+                // outputStreamWriter.write(textParam);
+
+                PrintStream ps = new PrintStream(httpURLConnection.getOutputStream());
+                // send your parameters to your site
+                ps.print("user=" + mUsername);
+                ps.print("&gmail=" + gmail);
+                outputStreamWriter.flush();
+                outputStreamWriter.close();
+
+                //Antwort zurück bekommen
+                InputStream inputStream = httpURLConnection.getInputStream();
+
+                httpURLConnection.disconnect();
+                inputStream.close();
+                ps.flush();
+                ps.close();
+
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+        }
+
+        @Override
+        protected void onPreExecute() {
+
+
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            //  getActivity().setProgressBarVisibility(false)
+        }
+    }
+
 
 }

@@ -1,10 +1,16 @@
 package com.example.cabanni.lokalpatriot_brackel;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Created by cabanni on 25.12.16.
  */
 
 public class Pinntext {
+    private static DateFormat dateformater = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
     private String Kategorie;
     private String text;
     private String mysqlDate;
@@ -12,6 +18,7 @@ public class Pinntext {
     private String user;
     private String mail;
     private Integer points;
+
 
     /**
      *
@@ -26,26 +33,17 @@ public class Pinntext {
         this.user = user;
         this.mail = mail;
         this.points = points;
-        this.mysqlDate = mysqlDate;
+        try {
+            Date date = dateformater.parse(mysqlDate);
+            SimpleDateFormat simpleD = new SimpleDateFormat();
+            simpleD.applyPattern("dd.MM.yyyy");
+            this.mysqlDate = simpleD.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
     }
 
-
-    /**
-     * @param kategorie
-     * @param text
-     * @param formatedDate
-     * @param user
-     * @param mail
-     * @param points
-     */
-    public Pinntext(String kategorie, String text, String formatedDate, String user, String mail, Integer points) {
-        Kategorie = kategorie;
-        this.text = text;
-        this.formatedDate = formatedDate;
-        this.user = user;
-        this.mail = mail;
-        this.points = points;
-    }
 
     public String getKategorie() {
         return Kategorie;

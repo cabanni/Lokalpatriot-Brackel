@@ -52,7 +52,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         return data.size();
     }
 
-    class MyRecyclerViewHolder extends RecyclerView.ViewHolder {
+    public class MyRecyclerViewHolder extends RecyclerView.ViewHolder {
         TextView datum;
         TextView user;
         TextView textLang;

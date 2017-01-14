@@ -17,7 +17,7 @@
 
 
         <!-- Activity Layout -->
-        <FrameLayout
+        <RelativeLayout
             android:id="@+id/activity_layout"
             android:layout_width="match_parent"
 
@@ -32,11 +32,13 @@
             <RelativeLayout
                 android:id="@+id/root_layout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+
+                android:layout_height="match_parent"
+                android:paddingTop="?attr/actionBarSize">
 
             </RelativeLayout>
 
-        </FrameLayout>
+        </RelativeLayout>
 
         <!--Drawer Lyout wichtig start!!!! -->
 

@@ -6,8 +6,8 @@
             android:id="@+id/pinnwand"
             android:title="Dorf Pinnwand"></item>
         <item
-            android:id="@+id/veranstaltung"
-            android:title="Veranstaltungen">
+            android:id="@+id/anzeige_aufgeben_nav"
+            android:title="An die Pinwand pinnen">
 
         </item>
         <item

@@ -2,9 +2,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.cabanni.lokalpatriot_brackel.FragmentZuVerkaufen">
+    tools:context="com.example.cabanni.lokalpatriot_brackel.pinnwand.FragmentShowPinwandZuVerkaufen">
 
     <!-- TODO: Update blank fragment layout -->
+    <ProgressBar
+        android:id="@+id/myProgessbar"
+        style="@android:style/Widget.ProgressBar.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="5dp"
+        android:layout_marginRight="5dp" />
 
 
     <android.support.v7.widget.RecyclerView
@@ -12,6 +20,5 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="37dp" />
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

@@ -11,6 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.cabanni.lokalpatriot_brackel.pinnwand.FragmentShowPinwandDiesDas;
+import com.example.cabanni.lokalpatriot_brackel.pinnwand.FragmentShowPinwandFeiern;
+import com.example.cabanni.lokalpatriot_brackel.pinnwand.FragmentShowPinwandHilfe;
+import com.example.cabanni.lokalpatriot_brackel.pinnwand.FragmentShowPinwandZuVerkaufen;
+import com.example.cabanni.lokalpatriot_brackel.pinnwand.FragmentShowPinwandZuVerschenken;
+
 /**
  * Created by cabanni on 02.01.17.
  */
@@ -42,36 +48,45 @@ public class PinnwandRootFragment extends Fragment {
 
         Bundle bundle = new Bundle();
 
+
         public MyAdapter(FragmentManager fm) {
             super(fm);
         }
 
+
         @Override
         public Fragment getItem(int position) {
 
-            Fragment fragment = new FragmentZuVerkaufen();
+            Fragment fragment = new FragmentShowPinwandZuVerkaufen();
 
-            switch (position) {
-                case 0:
-                    bundle.putString("kategorie", Finals.KATEGORIE_ZU_VERKAUFEN);
-                    break;
-                case 1:
-                    bundle.putString("kategorie", Finals.KATEGORIE_FEIER);
-                    break;
-                case 2:
-                    bundle.putString("kategorie", Finals.KATEGORIE_ZU_VERSCHENKEN);
-                    break;
-                case 3:
-                    bundle.putString("kategorie", Finals.KATEGORIE_HILFE);
-                    break;
-                case 4:
-                    bundle.putString("kategorie", Finals.KATEGORIE_DIES_DAS);
-                    break;
+
+            if (position == 0) {
+                fragment = new FragmentShowPinwandZuVerkaufen();
+                return fragment;
 
 
             }
-            fragment.setArguments(bundle);
+            if (position == 1) {
+                fragment = new FragmentShowPinwandFeiern();
+                return fragment;
 
+
+            }
+            if (position == 2) {
+                fragment = new FragmentShowPinwandZuVerschenken();
+                return fragment;
+
+            }
+            if (position == 3) {
+                fragment = new FragmentShowPinwandHilfe();
+                return fragment;
+            }
+
+            if (position == 4) {
+                fragment = new FragmentShowPinwandDiesDas();
+                return fragment;
+
+            }
             return fragment;
         }
 

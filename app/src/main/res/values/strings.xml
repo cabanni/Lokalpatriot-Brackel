@@ -1,8 +1,15 @@
 <resources>
-    <string name="app_name">Lokalpatriot-Brackel</string>
+    <string name="app_name">Lokalpatriot Brackel</string>
     <string name="drawertaggle_auf">auf</string>
     <string name="drawertaggle_zu">zu</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="anzeige_aufgeben">Hier können Sie eine Anzeige \n
+        für die Pinnwand aufgeben.</string>
+    <string name="kategorie_waehlen">Bitte die Kategorie wählen:</string>
+    <string name="label_edit_text_ueberschrift">Überschrift</string>
+    <string name="label_editText_beschreibung">Beschreibung:</string>
+    <string name="label_editText_phone">Telefon Nr*:</string>
+    <string name="erleuterung_kontakt">Die Telefonnummern Angabe ist freiwillig, damit Interessenten mit Ihnen in Kontakt treten können wird jedoch ein Link der Ihre gmail Adresse in der Emailapllikation öffnet veröffentlicht.</string>
 </resources>

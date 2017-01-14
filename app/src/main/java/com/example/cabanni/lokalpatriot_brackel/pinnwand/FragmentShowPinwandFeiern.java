@@ -1,4 +1,4 @@
-package com.example.cabanni.lokalpatriot_brackel;
+package com.example.cabanni.lokalpatriot_brackel.pinnwand;
 
 import android.app.Activity;
 import android.content.Context;
@@ -12,6 +12,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.cabanni.lokalpatriot_brackel.Finals;
+import com.example.cabanni.lokalpatriot_brackel.MyRecyclerViewAdapter;
+import com.example.cabanni.lokalpatriot_brackel.Pinntext;
+import com.example.cabanni.lokalpatriot_brackel.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,7 +37,7 @@ import java.util.ArrayList;
  * Created by cabanni on 24.12.16.
  */
 
-public class FragmentZuVerkaufen extends Fragment {
+public class FragmentShowPinwandFeiern extends Fragment {
     public Bundle bundle;
     RecyclerView recyclerView;
     MyRecyclerViewAdapter myRecyclerViewAdapter;
@@ -41,11 +46,10 @@ public class FragmentZuVerkaufen extends Fragment {
     Activity activity;
     String result;
     String ort = Finals.ORT;
-    String kategorie = Finals.KATEGORIE_ZU_VERKAUFEN;
+    String kategorie = Finals.KATEGORIE_FEIER;
     ArrayList<Pinntext> arrayList = new ArrayList<Pinntext>();
     JSONObject jsonObject;
     JSONArray jsonArray;
-
 
 
     @Override
@@ -60,7 +64,6 @@ public class FragmentZuVerkaufen extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        bundle = getArguments();
 
 
         result = new String();
@@ -79,6 +82,7 @@ public class FragmentZuVerkaufen extends Fragment {
         view = inflater.inflate(R.layout.fragment_zu_verkaufen, container, false);
         activity = getActivity(); // holt den context der Activity
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+
         return view;
 
     }
@@ -86,7 +90,7 @@ public class FragmentZuVerkaufen extends Fragment {
 
     public class BackgroundTask extends AsyncTask<Void, Void, Void> {
 
-        public String stringUrl = Finals.url;
+        public String stringUrl = Finals.urlPinnwandAbfrage;
 
         Context context;
         Activity activity;
@@ -100,7 +104,7 @@ public class FragmentZuVerkaufen extends Fragment {
             try {
                 // Post Variablen vorbereiten
                 //  String textParam = "ort=" + URLEncoder.encode(ort, "UTF-8") + "&&kategorie" + URLEncoder.encode(kategorie, "UTF-8");
-                URL url = new URL(Finals.url);
+                URL url = new URL(Finals.urlPinnwandAbfrage);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
                 httpURLConnection.setDoOutput(true);
                 httpURLConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
@@ -184,10 +188,8 @@ public class FragmentZuVerkaufen extends Fragment {
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
 
-
         }
     }
-
 
 
 }
