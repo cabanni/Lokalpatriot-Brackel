@@ -17,71 +17,90 @@
 
         card_view:cardCornerRadius="4dp">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/id"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/textLang"
+                android:visibility="visible" />
+
+
+            <TextView
+                android:id="@+id/ueberschrift"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true" />
+
+
+            <TextView
+                android:id="@+id/fuerDatum"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/fuerDatum"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:text="Am" />
-
-                <TextView
-                    android:id="@+id/Datum"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:text="TextView" />
+                android:layout_below="@id/ueberschrift"
 
 
-                <TextView
-                    android:id="@+id/fuerUser"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:text="schrieb" />
+                android:text="Am" />
 
-
-                <TextView
-                    android:id="@+id/User"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:text="TextView" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/Datum"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/textLang"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true" />
+                android:layout_below="@id/ueberschrift"
+                android:layout_toRightOf="@id/fuerDatum"
+                android:text="TextView" />
 
 
-            </LinearLayout>
-        </LinearLayout>
+            <TextView
+                android:id="@+id/fuerUser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/Datum"
+                android:text="schrieb" />
+
+
+            <TextView
+                android:id="@+id/User"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/Datum"
+                android:layout_toRightOf="@+id/fuerUser"
+
+
+                android:text="TextView" />
+
+
+            <TextView
+                android:id="@+id/textLang"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/User" />
+
+            <Button
+                android:id="@+id/loeschen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/id"
+                android:text="löschen"
+                android:visibility="invisible" />
+
+            <Button
+                android:id="@+id/aendern"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/id"
+                android:layout_toRightOf="@+id/loeschen"
+                android:text="andern"
+                android:visibility="invisible" />
+
+        </RelativeLayout>
     </android.support.v7.widget.CardView>
 </LinearLayout>

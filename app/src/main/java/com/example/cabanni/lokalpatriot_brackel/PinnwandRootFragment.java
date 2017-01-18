@@ -24,6 +24,7 @@ import com.example.cabanni.lokalpatriot_brackel.pinnwand.FragmentShowPinwandZuVe
 public class PinnwandRootFragment extends Fragment {
 
     ViewPager viewPager;
+    Bundle bundle;
 
     @Nullable
     @Override
@@ -36,7 +37,7 @@ public class PinnwandRootFragment extends Fragment {
         MyAdapter myAdapter = new MyAdapter(fragmentManager);
         viewPager.setAdapter(myAdapter);
         PagerTitleStrip pagerTitleStrip = (PagerTitleStrip) view.findViewById(R.id.pagerTitle);
-
+        bundle = getArguments();
 
         return view;
 
@@ -46,7 +47,7 @@ public class PinnwandRootFragment extends Fragment {
 
     class MyAdapter extends FragmentStatePagerAdapter {
 
-        Bundle bundle = new Bundle();
+
 
 
         public MyAdapter(FragmentManager fm) {
@@ -62,31 +63,30 @@ public class PinnwandRootFragment extends Fragment {
 
             if (position == 0) {
                 fragment = new FragmentShowPinwandZuVerkaufen();
-                return fragment;
 
 
             }
             if (position == 1) {
                 fragment = new FragmentShowPinwandFeiern();
-                return fragment;
 
 
             }
             if (position == 2) {
                 fragment = new FragmentShowPinwandZuVerschenken();
-                return fragment;
+
 
             }
             if (position == 3) {
                 fragment = new FragmentShowPinwandHilfe();
-                return fragment;
+
             }
 
             if (position == 4) {
                 fragment = new FragmentShowPinwandDiesDas();
-                return fragment;
+
 
             }
+            fragment.setArguments(bundle);
             return fragment;
         }
 

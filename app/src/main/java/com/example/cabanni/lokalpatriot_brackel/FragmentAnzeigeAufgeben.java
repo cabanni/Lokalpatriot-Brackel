@@ -108,20 +108,8 @@ public class FragmentAnzeigeAufgeben extends Fragment {
         return view;
     }
 
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        bundle.putString("ueberschrift", ueberschrift);
-        bundle.putString("beschreibung", beschreibung);
-        bundle.putString("telefonNummer", telefonNummer);
-    }
-
-    @Override
-    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
-        super.onViewStateRestored(savedInstanceState);
 
 
-    }
 
 
     protected void findText() {

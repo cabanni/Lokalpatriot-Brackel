@@ -18,6 +18,8 @@ public class Pinntext {
     private String user;
     private String mail;
     private Integer points;
+    private String ueberschrift;
+    private Integer id;
 
 
     /**
@@ -25,14 +27,17 @@ public class Pinntext {
      * @param text
      * @param user
      * @param mail
-     * @param points
+
      * @param mysqlDate
      */
-    public Pinntext(String text, String user, String mail, Integer points, String mysqlDate) {
+    public Pinntext(String ueberschrift, String text, String user, String mail, String mysqlDate, Integer id) {
         this.text = text;
         this.user = user;
         this.mail = mail;
-        this.points = points;
+        this.id = id;
+
+
+        this.ueberschrift = ueberschrift;
         try {
             Date date = dateformater.parse(mysqlDate);
             SimpleDateFormat simpleD = new SimpleDateFormat();
@@ -44,6 +49,21 @@ public class Pinntext {
 
     }
 
+    public String getUeberschrift() {
+        return ueberschrift;
+    }
+
+    public void setUeberschrift(String ueberschrift) {
+        this.ueberschrift = ueberschrift;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getKategorie() {
         return Kategorie;

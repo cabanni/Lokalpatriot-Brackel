@@ -50,6 +50,7 @@ public class FragmentShowPinwandFeiern extends Fragment {
     ArrayList<Pinntext> arrayList = new ArrayList<Pinntext>();
     JSONObject jsonObject;
     JSONArray jsonArray;
+    String userName;
 
 
     @Override
@@ -68,8 +69,7 @@ public class FragmentShowPinwandFeiern extends Fragment {
 
         result = new String();
         // pinnwandConnecter.sendToServer(bundle.getString("ort"), bundle.getString("kategorie")); // holt den Json String vom Server
-        BackgroundTask backgroundTask = new BackgroundTask();
-        backgroundTask.execute();
+
 
     }
 
@@ -81,7 +81,11 @@ public class FragmentShowPinwandFeiern extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_zu_verkaufen, container, false);
         activity = getActivity(); // holt den context der Activity
+        bundle = getArguments();
+        userName = bundle.getString("mUsername");
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        BackgroundTask backgroundTask = new BackgroundTask();
+        backgroundTask.execute();
 
         return view;
 
@@ -95,6 +99,12 @@ public class FragmentShowPinwandFeiern extends Fragment {
         Context context;
         Activity activity;
         String jsonString;
+        Bundle bundle;
+
+        public BackgroundTask() {
+
+
+        }
 
         ;
 
@@ -174,8 +184,8 @@ public class FragmentShowPinwandFeiern extends Fragment {
 
                     JSONObject jo = jsonArray.getJSONObject(count);
                     count++;
-                    Pinntext pinntext = new Pinntext(jo.getString("text"), jo.getString("userName"), jo.getString("userMail"),
-                            jo.getInt("userPunkte"), jo.getString("date"));
+                    Pinntext pinntext = new Pinntext(jo.getString("ueberschrift"), jo.getString("text"), jo.getString("userName"), jo.getString("userMail"),
+                            jo.getString("date"), jo.getInt("id"));
                     arrayList.add(pinntext);
 
 
@@ -183,7 +193,7 @@ public class FragmentShowPinwandFeiern extends Fragment {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            myRecyclerViewAdapter = new MyRecyclerViewAdapter(arrayList);
+            myRecyclerViewAdapter = new MyRecyclerViewAdapter(arrayList, userName);
             recyclerView.setAdapter(myRecyclerViewAdapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 

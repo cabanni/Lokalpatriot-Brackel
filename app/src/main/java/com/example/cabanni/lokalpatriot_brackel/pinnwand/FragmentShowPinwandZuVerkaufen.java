@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.example.cabanni.lokalpatriot_brackel.Finals;
+import com.example.cabanni.lokalpatriot_brackel.L;
 import com.example.cabanni.lokalpatriot_brackel.MyRecyclerViewAdapter;
 import com.example.cabanni.lokalpatriot_brackel.Pinntext;
 import com.example.cabanni.lokalpatriot_brackel.R;
@@ -48,11 +49,11 @@ public class FragmentShowPinwandZuVerkaufen extends Fragment {
     String result;
     String ort = Finals.ORT;
     String kategorie = Finals.KATEGORIE_ZU_VERKAUFEN;
-    ArrayList<Pinntext> arrayList = new ArrayList<Pinntext>();
+    ArrayList<Pinntext> arrayListPinntext = new ArrayList<Pinntext>();
     JSONObject jsonObject;
     JSONArray jsonArray;
     ProgressBar progressBar;
-
+    String userName;
 
 
     @Override
@@ -71,8 +72,7 @@ public class FragmentShowPinwandZuVerkaufen extends Fragment {
 
         result = new String();
         // pinnwandConnecter.sendToServer(bundle.getString("ort"), bundle.getString("kategorie")); // holt den Json String vom Server
-        BackgroundTask backgroundTask = new BackgroundTask();
-        backgroundTask.execute();
+
 
     }
 
@@ -81,16 +81,29 @@ public class FragmentShowPinwandZuVerkaufen extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
+        //bundle vom Rootfragment holen
+        bundle = getArguments();
+        this.userName = bundle.getString("mUsername");
+
 
         view = inflater.inflate(R.layout.fragment_zu_verkaufen, container, false);
         activity = getActivity(); // holt den context der Activity
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         progressBar = (ProgressBar) view.findViewById(R.id.myProgessbar);
 
+
+        BackgroundTask backgroundTask = new BackgroundTask();
+        backgroundTask.execute();
+
         return view;
 
     }
 
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+    }
 
     public class BackgroundTask extends AsyncTask<Void, Void, Void> {
 
@@ -100,7 +113,11 @@ public class FragmentShowPinwandZuVerkaufen extends Fragment {
         Activity activity;
         String jsonString;
 
-        ;
+
+        public BackgroundTask() {
+
+
+        }
 
         @Override
         protected Void doInBackground(Void... voids) {
@@ -181,24 +198,23 @@ public class FragmentShowPinwandZuVerkaufen extends Fragment {
 
                     JSONObject jo = jsonArray.getJSONObject(count);
                     count++;
-                    Pinntext pinntext = new Pinntext(jo.getString("text"), jo.getString("userName"), jo.getString("userMail"),
-                            jo.getInt("userPunkte"), jo.getString("date"));
-                    arrayList.add(pinntext);
+                    Pinntext pinntext = new Pinntext(jo.getString("ueberschrift"), jo.getString("text"), jo.getString("userName"), jo.getString("userMail"),
+                            jo.getString("date"), jo.getInt("id"));
+                    arrayListPinntext.add(pinntext);
 
 
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            myRecyclerViewAdapter = new MyRecyclerViewAdapter(arrayList);
+            myRecyclerViewAdapter = new MyRecyclerViewAdapter(arrayListPinntext, userName);
+            L.m(userName);
             recyclerView.setAdapter(myRecyclerViewAdapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
 
-
         }
     }
-
 
 
 }

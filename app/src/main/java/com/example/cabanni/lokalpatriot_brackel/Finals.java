@@ -14,6 +14,7 @@ public class Finals {
     //Webserver
 
     public static final String urlPinnwandAbfrage = "http://195.110.59.187/lokalpatriot-brackel/lokalpatriot.php";
+    public static final String urlPinnwandDelete = "http://195.110.59.187/lokalpatriot-brackel/delete.php";
 
     public static final String URL_USER_INSERT = "http://195.110.59.187/lokalpatriot-brackel/insertUser.php";
     public static final String ORT = "Brackel";
