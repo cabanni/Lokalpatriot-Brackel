@@ -2,6 +2,7 @@ package com.example.cabanni.lokalpatriot_brackel.pinnwand;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.example.cabanni.lokalpatriot_brackel.Finals;
 import com.example.cabanni.lokalpatriot_brackel.MyRecyclerViewAdapter;
@@ -51,6 +53,9 @@ public class FragmentShowPinwandFeiern extends Fragment {
     JSONObject jsonObject;
     JSONArray jsonArray;
     String userName;
+    Context context;
+    ProgressBar progressBar;
+    SharedPreferences sharedPreferences;
 
 
     @Override
@@ -65,6 +70,8 @@ public class FragmentShowPinwandFeiern extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        context = getActivity();
+
 
 
         result = new String();
@@ -77,13 +84,29 @@ public class FragmentShowPinwandFeiern extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        context = getActivity();
+
+        //bundle vom Rootfragment holen
+        bundle = getArguments();
+
+
+        if (bundle != null) {
+            this.userName = bundle.getString("mUsername", Finals.DEFAULT);
+        } else if (savedInstanceState != null) {
+            this.userName = savedInstanceState.getString("username");
+        } else {
+            sharedPreferences = context.getSharedPreferences(Finals.APPDATA, context.MODE_PRIVATE);
+            this.userName = sharedPreferences.getString("username", Finals.DEFAULT);
+
+        }
 
 
         view = inflater.inflate(R.layout.fragment_zu_verkaufen, container, false);
         activity = getActivity(); // holt den context der Activity
         bundle = getArguments();
-        userName = bundle.getString("mUsername");
+
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        progressBar = (ProgressBar) view.findViewById(R.id.myProgessbar);
         BackgroundTask backgroundTask = new BackgroundTask();
         backgroundTask.execute();
 
@@ -96,10 +119,9 @@ public class FragmentShowPinwandFeiern extends Fragment {
 
         public String stringUrl = Finals.urlPinnwandAbfrage;
 
-        Context context;
-        Activity activity;
+
         String jsonString;
-        Bundle bundle;
+
 
         public BackgroundTask() {
 
@@ -165,7 +187,7 @@ public class FragmentShowPinwandFeiern extends Fragment {
 
         @Override
         protected void onPreExecute() {
-            //  getActivity().setProgressBarIndeterminate(false);
+            progressBar.setVisibility(View.VISIBLE);
 
         }
 
@@ -174,6 +196,7 @@ public class FragmentShowPinwandFeiern extends Fragment {
             //  getActivity().setProgressBarVisibility(false);
             result = this.jsonString;
             Log.d("Json String", jsonString);
+            progressBar.setVisibility(View.INVISIBLE);
             try {
                 int count = 0;
                 jsonObject = new JSONObject(result);
@@ -185,7 +208,7 @@ public class FragmentShowPinwandFeiern extends Fragment {
                     JSONObject jo = jsonArray.getJSONObject(count);
                     count++;
                     Pinntext pinntext = new Pinntext(jo.getString("ueberschrift"), jo.getString("text"), jo.getString("userName"), jo.getString("userMail"),
-                            jo.getString("date"), jo.getInt("id"));
+                            jo.getString("date"), jo.getInt("id"), kategorie);
                     arrayList.add(pinntext);
 
 
@@ -193,7 +216,7 @@ public class FragmentShowPinwandFeiern extends Fragment {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            myRecyclerViewAdapter = new MyRecyclerViewAdapter(arrayList, userName);
+            myRecyclerViewAdapter = new MyRecyclerViewAdapter(arrayList, userName, getFragmentManager(), bundle);
             recyclerView.setAdapter(myRecyclerViewAdapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 

@@ -33,7 +33,6 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStreamWriter;
 import java.io.PrintStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -54,9 +53,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     private String mUsername;
     private String mPhotoUrl;
     private Bundle bundle;
-    private String ort = "brackel";
+    private String ort = Finals.ORT;
     private String kategorie = Finals.KATEGORIE_ZU_VERKAUFEN;
     private String gmail = new String();
+    private AppsSharedPreferences appData;
 
 
     public String getmUsername() {
@@ -71,9 +71,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        appData = new AppsSharedPreferences(this);
+        appData.editor.putString("ort", this.ort);
 
         bundle = new Bundle();
-        bundle.putString("ort", this.ort);
+
         bundle.putString("kategorie", kategorie);
 
         //Toolbar
@@ -128,7 +130,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                     this.gmail = user.getEmail();
                     Uri photoUrl = user.getPhotoUrl();
                     //User und gmail adresse in der Datenbank eintragen
-
+                    appData.editor.putString("username", mUsername);
+                    appData.editor.putString("gmail", this.gmail);
+                    appData.editor.putString("photo_url", photoUrl.toString());
 
                     bundle.putString("mUsername", mUsername);
                     bundle.putString("email", this.gmail);
@@ -273,15 +277,14 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                 //   httpURLConnection.setFixedLengthStreamingMode(textParam.getBytes().length);
 
                 // Post Variablen zum Server schicken
-                OutputStreamWriter outputStreamWriter = new OutputStreamWriter(httpURLConnection.getOutputStream());
+
                 // outputStreamWriter.write(textParam);
 
                 PrintStream ps = new PrintStream(httpURLConnection.getOutputStream());
                 // send your parameters to your site
                 ps.print("user=" + mUsername);
                 ps.print("&gmail=" + gmail);
-                outputStreamWriter.flush();
-                outputStreamWriter.close();
+
 
                 //Antwort zurück bekommen
                 InputStream inputStream = httpURLConnection.getInputStream();

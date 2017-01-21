@@ -1,11 +1,18 @@
 package com.example.cabanni.lokalpatriot_brackel;
 
+import android.content.Context;
+import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.example.cabanni.lokalpatriot_brackel.pinnwand.DialogFragmentDeletePintext;
+import com.example.cabanni.lokalpatriot_brackel.pinnwand.FragmentPinwandChangePost;
 
 import java.util.ArrayList;
 
@@ -19,19 +26,28 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     LayoutInflater inflater;
     ArrayList<Pinntext> data = new ArrayList<Pinntext>();
     String userName;
+    FragmentManager fragmentManager;
+    FragmentTransaction fragmentTransaction;
+    Context context;
+    Bundle bundle;
+    AppsSharedPreferences appData;
+    View view;
 
-    public MyRecyclerViewAdapter(ArrayList data, String userName) {
 
-
+    public MyRecyclerViewAdapter(ArrayList data, String userName, FragmentManager fragmentManager, Bundle bundle) {
+        this.bundle = new Bundle();
+        this.fragmentManager = fragmentManager;
         this.data = data;
         this.userName = userName;
+
     }
 
 
     @Override
     public MyRecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.pinnwand_item, parent, false);
+        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.pinnwand_item, parent, false);
+        this.context = view.getContext();
 
         MyRecyclerViewHolder viewHolder = new MyRecyclerViewHolder(view);
 
@@ -56,14 +72,44 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
                 @Override
                 public void onClick(View v) {
 
-                    PinnwandConnecter pinnwandConnecter = new PinnwandConnecter();
+                    try {
 
-                    pinnwandConnecter.sendToServer(current.getId().toString(), Finals.urlPinnwandDelete);
+                        bundle.putInt("id", current.getId());
+                        DialogFragmentDeletePintext dialogFragmentDeletePintext = new DialogFragmentDeletePintext();
+                        dialogFragmentDeletePintext.setArguments(bundle);
+                        dialogFragmentDeletePintext.show(fragmentManager, "DeleteDialog");
+                    } catch (NullPointerException e) {
+                        L.m(current.getId().toString());
+                    }
+
 
                 }
             });
-        }
+            holder.aendern.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    FragmentPinwandChangePost fragmentPinwandChangePost = new FragmentPinwandChangePost();
+                    try {
+                        bundle.putInt("id", current.getId());
+                        bundle.putString("ueberschrift", current.getUeberschrift());
+                        bundle.putString("text", current.getText());
+                        bundle.putString("kategorie", current.getKategorie());
 
+                    } catch (NullPointerException e) {
+                        bundle = new Bundle();
+                        bundle.putInt("id", current.getId());
+                        bundle.putString("ueberschrift", current.getUeberschrift());
+                        bundle.putString("text", current.getText());
+                        bundle.putString("kategorie", current.getKategorie());
+                    } finally {
+                        fragmentPinwandChangePost.setArguments(bundle);
+                        fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentTransaction.replace(R.id.root_layout, fragmentPinwandChangePost);
+                        fragmentTransaction.commit();
+                    }
+                }
+            });
+        }
 
 
 

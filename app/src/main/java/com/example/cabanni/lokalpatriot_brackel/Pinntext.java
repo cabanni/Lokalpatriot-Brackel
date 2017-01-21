@@ -11,7 +11,7 @@ import java.util.Date;
 
 public class Pinntext {
     private static DateFormat dateformater = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-    private String Kategorie;
+    private String kategorie;
     private String text;
     private String mysqlDate;
     private String formatedDate;
@@ -30,11 +30,12 @@ public class Pinntext {
 
      * @param mysqlDate
      */
-    public Pinntext(String ueberschrift, String text, String user, String mail, String mysqlDate, Integer id) {
+    public Pinntext(String ueberschrift, String text, String user, String mail, String mysqlDate, Integer id, String kategorie) {
         this.text = text;
         this.user = user;
         this.mail = mail;
         this.id = id;
+        this.kategorie = kategorie;
 
 
         this.ueberschrift = ueberschrift;
@@ -66,11 +67,11 @@ public class Pinntext {
     }
 
     public String getKategorie() {
-        return Kategorie;
+        return kategorie;
     }
 
     public void setKategorie(String kategorie) {
-        Kategorie = kategorie;
+        this.kategorie = kategorie;
     }
 
     public String getText() {

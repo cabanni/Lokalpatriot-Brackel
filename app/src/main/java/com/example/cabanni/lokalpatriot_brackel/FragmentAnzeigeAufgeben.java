@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -49,6 +50,7 @@ public class FragmentAnzeigeAufgeben extends Fragment {
     Context context;
     FragmentTransaction fragmentTransaction;
     FragmentManager fragmentManager;
+    ProgressBar progressBar;
 
 
     @Override
@@ -74,6 +76,8 @@ public class FragmentAnzeigeAufgeben extends Fragment {
         spinner = (Spinner) view.findViewById(R.id.spinnerKategorie);
         spinner.setAdapter(arrayAdapter);
 
+        progressBar = (ProgressBar) view.findViewById(R.id.myProgessbar);
+
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -98,6 +102,7 @@ public class FragmentAnzeigeAufgeben extends Fragment {
             public void onClick(View v) {
                 findText();
                 FragmentAnzeigeAufgeben.BackgroundTask backgroundTask = new FragmentAnzeigeAufgeben.BackgroundTask();
+                progressBar.setVisibility(View.VISIBLE);
                 backgroundTask.execute();
 
             }

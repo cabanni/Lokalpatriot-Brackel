@@ -2,6 +2,7 @@ package com.example.cabanni.lokalpatriot_brackel.pinnwand;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -54,6 +55,10 @@ public class FragmentShowPinwandZuVerkaufen extends Fragment {
     JSONArray jsonArray;
     ProgressBar progressBar;
     String userName;
+    String gmail;
+    Context context;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
 
 
     @Override
@@ -64,6 +69,11 @@ public class FragmentShowPinwandZuVerkaufen extends Fragment {
 
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("username", userName);
+    }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -80,10 +90,24 @@ public class FragmentShowPinwandZuVerkaufen extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        context = getActivity();
 
         //bundle vom Rootfragment holen
         bundle = getArguments();
-        this.userName = bundle.getString("mUsername");
+
+
+        if (bundle != null) {
+            this.userName = bundle.getString("mUsername", Finals.DEFAULT);
+        } else if (savedInstanceState != null) {
+            this.userName = savedInstanceState.getString("username");
+        } else {
+            sharedPreferences = context.getSharedPreferences(Finals.APPDATA, context.MODE_PRIVATE);
+            this.userName = sharedPreferences.getString("username", Finals.DEFAULT);
+
+        }
+
+
+
 
 
         view = inflater.inflate(R.layout.fragment_zu_verkaufen, container, false);
@@ -107,10 +131,8 @@ public class FragmentShowPinwandZuVerkaufen extends Fragment {
 
     public class BackgroundTask extends AsyncTask<Void, Void, Void> {
 
-        public String stringUrl = Finals.urlPinnwandAbfrage;
 
-        Context context;
-        Activity activity;
+
         String jsonString;
 
 
@@ -199,7 +221,7 @@ public class FragmentShowPinwandZuVerkaufen extends Fragment {
                     JSONObject jo = jsonArray.getJSONObject(count);
                     count++;
                     Pinntext pinntext = new Pinntext(jo.getString("ueberschrift"), jo.getString("text"), jo.getString("userName"), jo.getString("userMail"),
-                            jo.getString("date"), jo.getInt("id"));
+                            jo.getString("date"), jo.getInt("id"), kategorie);
                     arrayListPinntext.add(pinntext);
 
 
@@ -207,7 +229,7 @@ public class FragmentShowPinwandZuVerkaufen extends Fragment {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            myRecyclerViewAdapter = new MyRecyclerViewAdapter(arrayListPinntext, userName);
+            myRecyclerViewAdapter = new MyRecyclerViewAdapter(arrayListPinntext, userName, getFragmentManager(), bundle);
             L.m(userName);
             recyclerView.setAdapter(myRecyclerViewAdapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

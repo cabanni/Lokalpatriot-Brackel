@@ -26,6 +26,7 @@ public class PinnwandRootFragment extends Fragment {
     ViewPager viewPager;
     Bundle bundle;
 
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -38,6 +39,10 @@ public class PinnwandRootFragment extends Fragment {
         viewPager.setAdapter(myAdapter);
         PagerTitleStrip pagerTitleStrip = (PagerTitleStrip) view.findViewById(R.id.pagerTitle);
         bundle = getArguments();
+
+        if (bundle == null) {
+            this.bundle = savedInstanceState;
+        }
 
         return view;
 
