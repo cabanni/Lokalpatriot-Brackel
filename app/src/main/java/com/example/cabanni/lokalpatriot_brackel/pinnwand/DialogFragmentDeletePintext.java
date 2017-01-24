@@ -12,7 +12,6 @@ import android.widget.Button;
 
 import com.example.cabanni.lokalpatriot_brackel.Finals;
 import com.example.cabanni.lokalpatriot_brackel.PinnwandConnecter;
-import com.example.cabanni.lokalpatriot_brackel.PinnwandRootFragment;
 import com.example.cabanni.lokalpatriot_brackel.R;
 
 /**

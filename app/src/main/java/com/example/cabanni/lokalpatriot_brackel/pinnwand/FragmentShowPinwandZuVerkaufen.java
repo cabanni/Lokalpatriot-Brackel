@@ -144,6 +144,7 @@ public class FragmentShowPinwandZuVerkaufen extends Fragment {
         @Override
         protected Void doInBackground(Void... voids) {
 
+
             try {
                 // Post Variablen vorbereiten
                 //  String textParam = "ort=" + URLEncoder.encode(ort, "UTF-8") + "&&kategorie" + URLEncoder.encode(kategorie, "UTF-8");

@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import com.example.cabanni.lokalpatriot_brackel.Conn_updatePintext;
 import com.example.cabanni.lokalpatriot_brackel.Finals;
-import com.example.cabanni.lokalpatriot_brackel.PinnwandRootFragment;
 import com.example.cabanni.lokalpatriot_brackel.R;
 
 /**
@@ -68,6 +67,7 @@ public class DialogFragmentAendereEintrag extends DialogFragment {
 
 
                 pinnwandRootFragment.setArguments(bundle);
+                fragmentTransaction.addToBackStack(null);
 
                 fragmentTransaction.commit();
                 dismiss();

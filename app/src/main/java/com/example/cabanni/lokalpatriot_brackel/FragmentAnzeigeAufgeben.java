@@ -18,6 +18,8 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.cabanni.lokalpatriot_brackel.pinnwand.PinnwandRootFragment;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStreamWriter;

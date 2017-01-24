@@ -1,5 +1,6 @@
-package com.example.cabanni.lokalpatriot_brackel;
+package com.example.cabanni.lokalpatriot_brackel.pinnwand;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,11 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.cabanni.lokalpatriot_brackel.pinnwand.FragmentShowPinwandDiesDas;
-import com.example.cabanni.lokalpatriot_brackel.pinnwand.FragmentShowPinwandFeiern;
-import com.example.cabanni.lokalpatriot_brackel.pinnwand.FragmentShowPinwandHilfe;
-import com.example.cabanni.lokalpatriot_brackel.pinnwand.FragmentShowPinwandZuVerkaufen;
-import com.example.cabanni.lokalpatriot_brackel.pinnwand.FragmentShowPinwandZuVerschenken;
+import com.example.cabanni.lokalpatriot_brackel.Finals;
+import com.example.cabanni.lokalpatriot_brackel.R;
 
 /**
  * Created by cabanni on 02.01.17.
@@ -38,11 +36,9 @@ public class PinnwandRootFragment extends Fragment {
         MyAdapter myAdapter = new MyAdapter(fragmentManager);
         viewPager.setAdapter(myAdapter);
         PagerTitleStrip pagerTitleStrip = (PagerTitleStrip) view.findViewById(R.id.pagerTitle);
+        Context context = view.getContext();
         bundle = getArguments();
 
-        if (bundle == null) {
-            this.bundle = savedInstanceState;
-        }
 
         return view;
 

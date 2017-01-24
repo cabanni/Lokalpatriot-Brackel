@@ -42,9 +42,8 @@ public class NotificationService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         L.m("Sevice ist gestartet");
-        L.l(getApplicationContext(), "Service ist gestartet");
 
-        ArrayList<Event> naechsteEvents;
+
         //Intent for oskar_widget
         //   Intent intentForOskarWidget = new Intent(this, oskar_widget.class);
         //prepare for Extras

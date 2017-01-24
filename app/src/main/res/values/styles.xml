@@ -6,6 +6,39 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textViewStyle">@style/TextView</item>
     </style>
+
+    <style name="toolbar" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:actionBarItemBackground">@color/colorPrimary</item>
+
+    </style>
+
+    <style name="mypopup" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:actionBarItemBackground">@color/colorAccent</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+
+    </style>
+
+    <style name="pagerTitleStrip" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:background">@color/colorPrimary</item>
+
+
+    </style>
+
+    <style name="pinnwand_ueberschrift">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:background">@color/colorPrimary</item>
+
+    </style>
+
+
+    <style name="TextView">
+
+        <item name="android:padding">2dp</item>
+    </style>
+
 
 </resources>

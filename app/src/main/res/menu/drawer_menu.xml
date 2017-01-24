@@ -4,14 +4,17 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/pinnwand"
+            android:icon="@drawable/ic_location_city_black_36dp"
             android:title="Dorf Pinnwand"></item>
         <item
             android:id="@+id/anzeige_aufgeben_nav"
+            android:icon="@drawable/ic_attach_file_black_36dp"
             android:title="An die Pinwand pinnen">
 
         </item>
         <item
             android:id="@+id/chat"
+            android:icon="@drawable/ic_mode_comment_black_36dp"
             android:title="Dorfchat">
 
         </item>

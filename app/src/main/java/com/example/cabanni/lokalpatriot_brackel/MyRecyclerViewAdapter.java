@@ -1,6 +1,7 @@
 package com.example.cabanni.lokalpatriot_brackel;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -35,7 +36,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
 
     public MyRecyclerViewAdapter(ArrayList data, String userName, FragmentManager fragmentManager, Bundle bundle) {
-        this.bundle = new Bundle();
+        this.bundle = bundle;
         this.fragmentManager = fragmentManager;
         this.data = data;
         this.userName = userName;
@@ -63,6 +64,10 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         holder.datum.setText(current.getMysqlDate());
         holder.ueberschrift.setText(current.getUeberschrift());
         holder.id.setText(current.getId().toString());
+
+        if (Build.VERSION.SDK_INT >= 21) {
+            holder.ueberschrift.setElevation(10);
+        }
 
 
         if (current.getUser().equals(userName)) {
@@ -103,7 +108,9 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
                         bundle.putString("kategorie", current.getKategorie());
                     } finally {
                         fragmentPinwandChangePost.setArguments(bundle);
+
                         fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentTransaction.addToBackStack(null);
                         fragmentTransaction.replace(R.id.root_layout, fragmentPinwandChangePost);
                         fragmentTransaction.commit();
                     }

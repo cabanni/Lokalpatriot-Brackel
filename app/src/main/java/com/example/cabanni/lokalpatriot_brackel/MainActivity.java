@@ -25,6 +25,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.cabanni.lokalpatriot_brackel.pinnwand.PinnwandRootFragment;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -67,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         this.mUsername = mUsername;
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         //Toolbar
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        if (Build.VERSION.SDK_INT > 21) {
+        if (Build.VERSION.SDK_INT >= 21) {
             toolbar.setElevation(25);
         }
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -156,6 +158,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         actionBarDrawerToggle = new ActionBarDrawerToggle(MainActivity.this, drawerLayout,
                 R.string.drawertaggle_auf, R.string.drawertaggle_zu);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
 
         //StartFragment
         if (savedInstanceState != null) {
@@ -166,7 +169,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
         Fragment startFragment = new StartFragment();
         startFragment.setArguments(bundle);
-        fragmentTransaction.add(R.id.root_layout, startFragment);
+        fragmentTransaction.replace(R.id.root_layout, startFragment);
         fragmentTransaction.commit();
 
 
