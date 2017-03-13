@@ -56,7 +56,7 @@ public class FragmentPinwandChangePost extends Fragment {
         View view = inflater.inflate(R.layout.fragment_pinnwand_change_post, container, false);
         bundle = getArguments();
         this.context = view.getContext();
-        arrayAdapter = new ArrayAdapter<String>(this.context, android.R.layout.simple_spinner_dropdown_item, kategorien);
+        arrayAdapter = new ArrayAdapter<String>(this.context, R.layout.simple_spinner_item, kategorien);
         spinner = (Spinner) view.findViewById(R.id.spinnerKategorieAendern);
 
         spinner.setAdapter(arrayAdapter);

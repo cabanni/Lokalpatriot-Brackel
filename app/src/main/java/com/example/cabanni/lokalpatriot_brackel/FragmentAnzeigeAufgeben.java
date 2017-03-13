@@ -64,7 +64,7 @@ public class FragmentAnzeigeAufgeben extends Fragment {
 
 
         kategorien = new String[]{Finals.KATEGORIE_ZU_VERKAUFEN, Finals.KATEGORIE_FEIER, Finals.KATEGORIE_ZU_VERSCHENKEN, Finals.KATEGORIE_HILFE, Finals.KATEGORIE_DIES_DAS};
-        arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, kategorien);
+        arrayAdapter = new ArrayAdapter<String>(getContext(), R.layout.simple_spinner_item, kategorien);
 
 
     }
@@ -124,8 +124,7 @@ public class FragmentAnzeigeAufgeben extends Fragment {
         ueberschrift = editTextUeberschrift.getText().toString();
         editTextBeschreibung = (EditText) view.findViewById(R.id.editText_beschreibung);
         beschreibung = editTextBeschreibung.getText().toString();
-        editTextTelefonNummer = (EditText) view.findViewById(R.id.editText_phone);
-        telefonNummer = editTextTelefonNummer.getText().toString();
+
     }
 
     public void changeFragmentBack() {
@@ -158,7 +157,7 @@ public class FragmentAnzeigeAufgeben extends Fragment {
                 URL url = new URL(Finals.URL_INSERT_PINWAND);
                 String textParam = "user=" + URLEncoder.encode(username, "UTF-8") + "&gmail=" + URLEncoder.encode(gmail, "UTF-8") +
                         "&ueberschrift=" + URLEncoder.encode(ueberschrift, "UTF-8") + "&beschreibung=" + URLEncoder.encode(beschreibung, "UTF-8") +
-                        "&telefon=" + URLEncoder.encode(telefonNummer, "UTF-8") + "&kategorie=" + URLEncoder.encode(kategorie, "UTF-8") +
+                        "&telefon=" + URLEncoder.encode("", "UTF-8") + "&kategorie=" + URLEncoder.encode(kategorie, "UTF-8") +
                         "&ort=" + URLEncoder.encode(Finals.ORT, "UTF-8");
 
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();

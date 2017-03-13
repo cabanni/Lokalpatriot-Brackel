@@ -6,6 +6,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.TextView;
 
 /**
@@ -27,10 +29,17 @@ public class StartFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_start_fragment, container, false);
-        textView = (TextView) view.findViewById(R.id.startFragmentTextView);
+
         Bundle bundle = this.getArguments();
         mUserName = bundle.getString("mUsername");
-        textView.setText(this.mUserName);
+
+        WebView webView= (WebView) view.findViewById(R.id.webview);
+        WebSettings webSettings= webView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        webView.loadUrl("http://192.168.43.170/lokalpatriot/Lokalpatriot-Homepage/");
+
+
+
 
         return view;
     }

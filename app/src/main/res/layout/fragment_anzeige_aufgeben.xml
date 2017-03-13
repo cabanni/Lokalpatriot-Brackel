@@ -28,15 +28,19 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
             android:text="@string/anzeige_aufgeben"
-            android:textSize="20sp" />
+            android:textSize="22sp"
+            android:layout_marginBottom="20dp"/>
 
         <TextView
             android:id="@+id/textView5"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/textView4"
+            android:background="@color/colorPrimary"
+            android:textColor="#fff"
+            android:padding="6dp"
             android:text="@string/kategorie_waehlen" />
 
         <Spinner
@@ -45,13 +49,17 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/textView5" />
+            android:layout_below="@+id/textView5"
+            />
 
         <TextView
             android:id="@+id/label_ueberschrift"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/spinnerKategorie"
+            android:background="@color/colorPrimary"
+            android:padding="6dp"
+            android:textColor="#fff"
 
             android:text="@string/label_edit_text_ueberschrift" />
 
@@ -69,16 +77,21 @@
             android:freezesText="true"
             android:gravity="top|left"
             android:inputType="textPersonName"
-            android:text="Überschrift" />
+            android:text="Überschrift"
+            android:textColor="@color/colorPrimary"/>
 
         <TextView
             android:id="@+id/label_beschreibung"
-            android:layout_width="wrap_content"
+            android:textColor="#fff"
+            android:padding="6dp"
+            android:layout_width="match_parent"
+            android:background="@color/colorPrimary"
             android:layout_height="wrap_content"
             android:layout_below="@+id/editText_ueberschrift"
             android:text="@string/label_editText_beschreibung" />
 
         <EditText
+            android:textColor="@color/colorPrimary"
             android:id="@+id/editText_beschreibung"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -92,37 +105,13 @@
             android:inputType="textMultiLine"
             android:minLines="6"
             android:scrollbars="vertical"
-            android:text="Beschreibung" />
+            android:text="Text eingeben" />
 
 
-        <TextView
-            android:id="@+id/textView_label_phone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/editText_beschreibung"
-            android:text="@string/label_editText_phone" />
 
-        <EditText
-            android:id="@+id/editText_phone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/textView_label_phone"
-            android:ems="10"
-            android:freezesText="true"
-            android:inputType="phone" />
 
-        <TextView
-            android:id="@+id/tv_erleuterung"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/editText_phone"
-            android:lines="4"
-            android:maxLines="4"
-            android:text="@string/erleuterung_kontakt" />
+
+
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/button_anzeige_abschicken"
@@ -132,7 +121,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/tv_erleuterung"
+            android:layout_below="@+id/editText_beschreibung"
             android:text="abschicken" />
 
     </RelativeLayout>

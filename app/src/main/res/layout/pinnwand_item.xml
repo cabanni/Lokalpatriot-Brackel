@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="300dp"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
 
     android:layout_centerHorizontal="true"
@@ -8,9 +9,9 @@
     android:orientation="horizontal">
 
 
-    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    <android.support.v7.widget.CardView
 
-        android:layout_width="300dp"
+        android:layout_width="280dp"
 
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -34,7 +35,7 @@
                 style="@style/pinnwand_ueberschrift"
                 android:layout_width="match_parent"
 
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
 
                 android:layout_alignParentStart="true"
@@ -42,7 +43,8 @@
                 android:layout_alignParentTop="true"
                 android:padding="5dp"
                 android:textAlignment="center"
-                android:textSize="15sp" />
+
+            />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -57,9 +59,11 @@
 
 
 
-                android:text="Am" />
+                android:text="Am"
+                android:elevation="4dp"/>
 
             <TextView
+                android:elevation="4dp"
                 android:id="@+id/Datum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -98,10 +102,13 @@
                 <TextView
                     android:id="@+id/id"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_below="@+id/textLang"
                     android:visibility="visible" />
             <Button
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/ic_buttonorange"
+                android:textColor="#FFFFFFFF"
                 android:id="@+id/loeschen"
                 style="@style/button"
                 android:layout_width="wrap_content"
@@ -111,8 +118,11 @@
                 android:visibility="invisible" />
 
             <Button
+
                 android:id="@+id/aendern"
                 style="@style/button"
+                android:background="@drawable/ic_buttonorange"
+                android:layout_centerHorizontal="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/id"

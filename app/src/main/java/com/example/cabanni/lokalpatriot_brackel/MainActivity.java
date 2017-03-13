@@ -23,8 +23,11 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.Toast;
 
+import com.example.cabanni.lokalpatriot_brackel.chat.ChatFragment;
 import com.example.cabanni.lokalpatriot_brackel.pinnwand.PinnwandRootFragment;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.ConnectionResult;
@@ -79,6 +82,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         bundle = new Bundle();
 
         bundle.putString("kategorie", kategorie);
+        bundle.putString("ort",this.ort);
 
         //Toolbar
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -97,6 +101,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         calender.setTimeInMillis(System.currentTimeMillis() + 1000 * 60 * 10);
         alarmManager.setRepeating(AlarmManager.RTC, calender.getTimeInMillis(),
                 (1000 * 60 * 10), pendingIntent);
+
+
 
         //firebase
         if (checkNetwork()) {
@@ -200,6 +206,15 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                         fragmentTransaction.addToBackStack(null);
                         anzeigeAufgebenFragment.setArguments(bundle);
                         fragmentTransaction.commit();
+                        break;
+                    case R.id.chat:
+                        Fragment chatFragment = new ChatFragment();
+                        fragmentTransaction= fragmentManager.beginTransaction();
+                        fragmentTransaction.replace(R.id.root_layout, chatFragment);
+                        fragmentTransaction.addToBackStack(null);
+                        chatFragment.setArguments(bundle);
+                        fragmentTransaction.commit();
+                        break;
 
 
                 }

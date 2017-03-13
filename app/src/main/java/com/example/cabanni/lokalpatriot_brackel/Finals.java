@@ -30,5 +30,5 @@ public class Finals {
     public static final String APPDATA = "xyz.lokalpatriot.appData";
     public static final String DEFAULT = "N/A";
     public static String URL_INSERT_PINWAND = "http://195.110.59.187/lokalpatriot-brackel/insertPintext.php";
-
+    public final static String lineSeparator = System.getProperty("line.separator");
 }

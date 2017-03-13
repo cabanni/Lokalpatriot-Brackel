@@ -1,6 +1,8 @@
 package com.example.cabanni.lokalpatriot_brackel;
 
 import android.content.Context;
+import android.graphics.PorterDuff;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -62,7 +64,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         holder.textLang.setText(current.getText());
         holder.user.setText(current.getUser());
         holder.datum.setText(current.getMysqlDate());
-        holder.ueberschrift.setText(current.getUeberschrift());
+        holder.ueberschrift.setText(current.getUeberschrift().toUpperCase());
         holder.id.setText(current.getId().toString());
 
         if (Build.VERSION.SDK_INT >= 21) {
@@ -138,15 +140,19 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         Button loeschen;
         Button aendern;
         public MyRecyclerViewHolder(View itemView) {
-
             super(itemView);
+            Typeface emachine=Typeface.createFromAsset(context.getAssets(),"fonts/MathJax_Typewriter-Regular.otf");
             ueberschrift = (TextView) itemView.findViewById(R.id.ueberschrift);
+            ueberschrift.setTypeface(emachine);
             datum = (TextView) itemView.findViewById(R.id.Datum);
             user = (TextView) itemView.findViewById(R.id.User);
             textLang = (TextView) itemView.findViewById(R.id.textLang);
+
+            textLang.setTypeface(emachine);
             id = (TextView) itemView.findViewById(R.id.id);
             loeschen = (Button) itemView.findViewById(R.id.loeschen);
             aendern = (Button) itemView.findViewById(R.id.aendern);
+           // aendern.getBackground().setColorFilter(0xFF00FF00, PorterDuff.Mode.MULTIPLY);
         }
     }
 }

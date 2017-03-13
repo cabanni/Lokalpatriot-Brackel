@@ -32,6 +32,7 @@
         android:text="TextView" />
 
     <Button
+        style="@style/button"
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -40,9 +41,12 @@
         android:layout_below="@+id/textView7"
         android:layout_marginEnd="30dp"
         android:layout_marginRight="30dp"
-        android:text="nein" />
+        android:text="nein"
+        android:background="@drawable/ic_buttonorange"/>
 
     <Button
+        style="@style/button"
+        android:background="@drawable/ic_buttonorange"
         android:id="@+id/button3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

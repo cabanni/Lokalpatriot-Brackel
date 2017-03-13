@@ -10,7 +10,21 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:text="TextView" />
+        android:text="@string/pinntextAendern"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
+        android:textSize="20sp"/>
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/fragmentAendern"
+        android:background="@color/colorPrimary"
+        android:textColor="#fff"
+        android:padding="6dp"
+        android:text="@string/kategorie_waehlen" />
 
     <Spinner
         android:id="@+id/spinnerKategorieAendern"
@@ -18,7 +32,18 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/fragmentAendern" />
+        android:layout_below="@+id/textView5" />
+
+    <TextView
+        android:id="@+id/label_ueberschrift"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/spinnerKategorieAendern"
+        android:background="@color/colorPrimary"
+        android:padding="6dp"
+        android:textColor="#fff"
+
+        android:text="@string/label_edit_text_ueberschrift" />
 
     <EditText
         android:id="@+id/editText_ueberschriftAendern"
@@ -28,10 +53,20 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/spinnerKategorieAendern"
+        android:layout_below="@+id/label_ueberschrift"
         android:ems="10"
+        android:textColor="@color/colorPrimary"
         android:inputType="textPersonName"
         android:text="Name" />
+    <TextView
+        android:id="@+id/label_beschreibung"
+        android:textColor="#fff"
+        android:padding="6dp"
+        android:layout_width="match_parent"
+        android:background="@color/colorPrimary"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editText_ueberschriftAendern"
+        android:text="@string/label_editText_beschreibung" />
 
     <EditText
         android:id="@+id/editTextLangTextAendern"
@@ -41,7 +76,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/editText_ueberschriftAendern"
+        android:layout_below="@+id/label_beschreibung"
+        android:textColor="@color/colorPrimary"
         android:ems="10"
         android:inputType="textMultiLine" />
 
@@ -53,6 +89,13 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentStart="true"
+        android:background="@drawable/ic_buttonorange"
+        android:textColor="#FFFFFFFF"
         android:layout_below="@+id/editTextLangTextAendern"
-        android:text="Button" />
+        android:text="abschicken" />
+
+
+
+
+
 </RelativeLayout>

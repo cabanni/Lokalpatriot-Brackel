@@ -5,7 +5,8 @@
         <item
             android:id="@+id/pinnwand"
             android:icon="@drawable/ic_location_city_black_36dp"
-            android:title="Dorf Pinnwand"></item>
+            android:title="Dorf Pinnwand"
+            android:checked="true"></item>
         <item
             android:id="@+id/anzeige_aufgeben_nav"
             android:icon="@drawable/ic_attach_file_black_36dp"
