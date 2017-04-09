@@ -10,7 +10,7 @@ import java.util.Calendar;
 
 /**
  * Created by cabanni on 03.01.17.
- *startet service insofern das Smartphone neu gebucht wurde
+ *startet service insofern das Smartphone neu gebootet wurde
  */
 
 public class BootCompleteReciever extends BroadcastReceiver {

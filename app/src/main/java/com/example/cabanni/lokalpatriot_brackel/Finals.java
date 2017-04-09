@@ -11,7 +11,7 @@ public class Finals {
 
     public static final String SERVERLOKAL_INSERT_PINWAND = "http://192.168.43.170/lokalpatriot/lokalpatriot-sites-brackel/insertPintext.php";
 
-
+    public static final String SERVERLOKAL_START_FRAGMENT = "http://192.168.43.170/lokalpatriot-brackel/lokalpatrioten-hp/index.php";
     //Webserver
 
     public static final String urlPinnwandAbfrage = "http://195.110.59.187/lokalpatriot-brackel/lokalpatriot.php";

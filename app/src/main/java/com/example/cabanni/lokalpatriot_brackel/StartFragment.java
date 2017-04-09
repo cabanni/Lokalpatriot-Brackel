@@ -36,7 +36,7 @@ public class StartFragment extends Fragment {
         WebView webView= (WebView) view.findViewById(R.id.webview);
         WebSettings webSettings= webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
-        webView.loadUrl("http://192.168.43.170/lokalpatriot/Lokalpatriot-Homepage/");
+        webView.loadUrl(Finals.SERVERLOKAL_START_FRAGMENT);
 
 
 

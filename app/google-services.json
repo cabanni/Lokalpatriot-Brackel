@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "204969435561",
+    "firebase_url": "https://lokalpatriot-brackel-bf03b.firebaseio.com",
+    "project_id": "lokalpatriot-brackel-bf03b",
+    "storage_bucket": "lokalpatriot-brackel-bf03b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:204969435561:android:e7c4a1a4fd35b4b6",
+        "android_client_info": {
+          "package_name": "xyz.lokalpatriot.cabanni.lokalpatriot_brackel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "204969435561-99cq7cmeafkojm86pu092i865t751r9g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "xyz.lokalpatriot.cabanni.lokalpatriot_brackel",
+            "certificate_hash": "8FAAF563A637313372D22FF8B1F55F52E7210DB5"
+          }
+        },
+        {
+          "client_id": "204969435561-qlj2iuaaung366vjper7cj06t8d68n3t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBxs_zAiQbFXqjfd52r-I9eTVvW3KbNNsM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "204969435561-qlj2iuaaung366vjper7cj06t8d68n3t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
