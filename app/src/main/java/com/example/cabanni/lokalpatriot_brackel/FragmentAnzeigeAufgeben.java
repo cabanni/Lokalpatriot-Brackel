@@ -154,7 +154,7 @@ public class FragmentAnzeigeAufgeben extends Fragment {
             try {
                 // Post Variablen vorbereiten
                 //  String textParam = "ort=" + URLEncoder.encode(ort, "UTF-8") + "&&kategorie" + URLEncoder.encode(kategorie, "UTF-8");
-                URL url = new URL(Finals.URL_INSERT_PINWAND);
+                URL url = new URL(Finals.SERVERLOKAL_INSERT_PINWAND);
                 String textParam = "user=" + URLEncoder.encode(username, "UTF-8") + "&gmail=" + URLEncoder.encode(gmail, "UTF-8") +
                         "&ueberschrift=" + URLEncoder.encode(ueberschrift, "UTF-8") + "&beschreibung=" + URLEncoder.encode(beschreibung, "UTF-8") +
                         "&telefon=" + URLEncoder.encode("", "UTF-8") + "&kategorie=" + URLEncoder.encode(kategorie, "UTF-8") +
