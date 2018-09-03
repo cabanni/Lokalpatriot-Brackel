@@ -10,7 +10,7 @@ import java.util.Date;
  */
 
 public class Pinntext {
-    private static DateFormat dateformater = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+    private static DateFormat dateformater = new SimpleDateFormat("yyyy-MM-dd");
     private String kategorie;
     private String text;
     private String mysqlDate;

@@ -34,6 +34,7 @@ import java.io.PrintStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 
 /**
@@ -80,7 +81,7 @@ public class FragmentShowPinwandZuVerkaufen extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
 
-        result = new String();
+        result = new String("default");
         // pinnwandConnecter.sendToServer(bundle.getString("ort"), bundle.getString("kategorie")); // holt den Json String vom Server
 
 
@@ -133,7 +134,7 @@ public class FragmentShowPinwandZuVerkaufen extends Fragment {
 
 
 
-        String jsonString;
+        String jsonString =" json unverändert";
 
 
         public BackgroundTask() {
@@ -149,38 +150,39 @@ public class FragmentShowPinwandZuVerkaufen extends Fragment {
                 // Post Variablen vorbereiten
                 //  String textParam = "ort=" + URLEncoder.encode(ort, "UTF-8") + "&&kategorie" + URLEncoder.encode(kategorie, "UTF-8");
                 URL url = new URL(Finals.urlPinnwandAbfrage);
-                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-                httpURLConnection.setDoOutput(true);
-                httpURLConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setDoOutput(true);
+                urlConnection.setDoInput(true);
+                urlConnection.setRequestMethod("POST");
+                urlConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
                 //   httpURLConnection.setFixedLengthStreamingMode(textParam.getBytes().length);
 
-                // Post Variablen zum Server schicken
-                OutputStreamWriter outputStreamWriter = new OutputStreamWriter(httpURLConnection.getOutputStream());
-                // outputStreamWriter.write(textParam);
 
-                PrintStream ps = new PrintStream(httpURLConnection.getOutputStream());
+                PrintStream ps = new PrintStream(urlConnection.getOutputStream());
                 // send your parameters to your site
                 ps.print("ort=" + ort);
                 ps.print("&kategorie=" + kategorie);
-                outputStreamWriter.flush();
-                outputStreamWriter.close();
 
-                //Antwort zurück bekommen
-                InputStream inputStream = httpURLConnection.getInputStream();
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-                StringBuilder stringBuilder = new StringBuilder();
-                String line;
+                InputStream inputStream;
 
-                while ((line = bufferedReader.readLine()) != null) {
-                    stringBuilder.append(line);
-                    publishProgress();
 
-                }
+                    inputStream = urlConnection.getInputStream();
+
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                    StringBuilder stringBuilder = new StringBuilder();
+                    String line;
+
+                    while ((line = bufferedReader.readLine()) != null) {
+                        stringBuilder.append(line);
+                        publishProgress();
+
+                    }  this.jsonString = stringBuilder.toString().trim();
+
+
                 //alles schließen
-                httpURLConnection.disconnect();
                 inputStream.close();
-                outputStreamWriter.close();
-                this.jsonString = stringBuilder.toString().trim();
+               ps.close();
+
 
             } catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -208,7 +210,9 @@ public class FragmentShowPinwandZuVerkaufen extends Fragment {
             //  getActivity().setProgressBarVisibility(false)
             //
             progressBar.setVisibility(View.INVISIBLE);
-            result = this.jsonString;
+
+                result = this.jsonString;
+
 
             try {
                 Log.d("Json String", jsonString);

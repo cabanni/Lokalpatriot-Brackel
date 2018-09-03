@@ -107,11 +107,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         //firebase
         if (checkNetwork()) {
             mGoogleApiClient = new GoogleApiClient.Builder(this)
-                    .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
+                    .enableAutoManage(this /* FragmentActivity */,
+                            this /* OnConnectionFailedListener */)
                     .addApi(Auth.GOOGLE_SIGN_IN_API)
                     .build();
-            mFirebaseAuth = FirebaseAuth.getInstance();
-            mFirebaseUser = mFirebaseAuth.getCurrentUser();
+
 
             // Initialize Firebase Auth
             mFirebaseAuth = FirebaseAuth.getInstance();
@@ -296,7 +296,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
                 // Post Variablen zum Server schicken
 
-                // outputStreamWriter.write(textParam);
 
                 PrintStream ps = new PrintStream(httpURLConnection.getOutputStream());
                 // send your parameters to your site
@@ -305,7 +304,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
 
                 //Antwort zurück bekommen
-                InputStream inputStream = httpURLConnection.getInputStream();
+                InputStream inputStream;
+               ;
+
+                    inputStream = httpURLConnection.getInputStream();
 
                 httpURLConnection.disconnect();
                 inputStream.close();

@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.example.cabanni.lokalpatriot_brackel.Finals;
+import com.example.cabanni.lokalpatriot_brackel.L;
 import com.example.cabanni.lokalpatriot_brackel.MyRecyclerViewAdapter;
 import com.example.cabanni.lokalpatriot_brackel.Pinntext;
 import com.example.cabanni.lokalpatriot_brackel.R;
@@ -75,7 +76,7 @@ public class FragmentShowPinwandHilfe extends Fragment {
 
 
 
-        result = new String();
+        result = new String("default");
         // pinnwandConnecter.sendToServer(bundle.getString("ort"), bundle.getString("kategorie")); // holt den Json String vom Server
 
 
@@ -120,7 +121,7 @@ public class FragmentShowPinwandHilfe extends Fragment {
 
         Context context;
         Activity activity;
-        String jsonString;
+        String jsonString =" json unverändert";
 
         ;
 
@@ -133,36 +134,38 @@ public class FragmentShowPinwandHilfe extends Fragment {
                 URL url = new URL(Finals.urlPinnwandAbfrage);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
                 httpURLConnection.setDoOutput(true);
+                httpURLConnection.setDoInput(true);
                 httpURLConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
                 //   httpURLConnection.setFixedLengthStreamingMode(textParam.getBytes().length);
 
-                // Post Variablen zum Server schicken
-                OutputStreamWriter outputStreamWriter = new OutputStreamWriter(httpURLConnection.getOutputStream());
-                // outputStreamWriter.write(textParam);
 
                 PrintStream ps = new PrintStream(httpURLConnection.getOutputStream());
                 // send your parameters to your site
                 ps.print("ort=" + ort);
                 ps.print("&kategorie=" + kategorie);
-                outputStreamWriter.flush();
-                outputStreamWriter.close();
+
 
                 //Antwort zurück bekommen
-                InputStream inputStream = httpURLConnection.getInputStream();
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-                StringBuilder stringBuilder = new StringBuilder();
-                String line;
+                InputStream inputStream;
 
-                while ((line = bufferedReader.readLine()) != null) {
-                    stringBuilder.append(line);
-                    publishProgress();
 
-                }
+                    inputStream = httpURLConnection.getInputStream();
+
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                    StringBuilder stringBuilder = new StringBuilder();
+                    String line;
+
+                    while ((line = bufferedReader.readLine()) != null) {
+                        stringBuilder.append(line);
+                        publishProgress();
+
+                    }  this.jsonString = stringBuilder.toString().trim();
+
                 //alles schließen
                 httpURLConnection.disconnect();
                 inputStream.close();
-                outputStreamWriter.close();
-                this.jsonString = stringBuilder.toString().trim();
+                ps.close();
+
 
             } catch (MalformedURLException e) {
                 e.printStackTrace();

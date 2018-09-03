@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="5dp"
+    android:orientation="horizontal">
+
+
+    <android.support.v7.widget.CardView
+
+        android:layout_width="280dp"
+
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="10dp"
+        card_view:cardElevation="10dp"
+
+
+
+        card_view:cardBackgroundColor="@color/colorAccent"
+        card_view:cardCornerRadius="4dp">
+
+
+        <RelativeLayout
+            android:id="@+id/r1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/ueberschrift"
+                style="@style/pinnwand_ueberschrift"
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+
+                android:layout_alignParentStart="true"
+
+                android:layout_alignParentTop="true"
+                android:padding="5dp"
+                android:textAlignment="center"
+
+                />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ueberschrift"
+                android:layout_margin="10dp">
+
+                <TextView
+                    android:id="@+id/fuerDatum"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+
+                    android:elevation="4dp"
+                    android:text="Am" />
+
+                <TextView
+                    android:id="@+id/Datum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/fuerDatum"
+
+                    android:elevation="4dp"
+                    android:text="TextView" />
+
+
+                <TextView
+                    android:id="@+id/fuerUser"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@id/Datum"
+                    android:text="schrieb" />
+
+
+                <TextView
+                    android:id="@+id/User"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/Datum"
+                    android:layout_toRightOf="@+id/fuerUser"
+
+
+                    android:text="TextView" />
+
+
+                <TextView
+                    android:id="@+id/textLang"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@id/User" />
+
+                <TextView
+                    android:id="@+id/id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textLang"
+                    android:visibility="invisible" />
+
+                <Button
+                    android:id="@+id/loeschen"
+                    style="@style/button"
+                    android:layout_width="100dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/id"
+                    android:background="@drawable/ic_buttonorange"
+                    android:text="löschen"
+                    android:textColor="#FFF"
+                    android:visibility="invisible" />
+
+                <Button
+
+                    android:id="@+id/aendern"
+                    style="@style/button"
+                    android:layout_width="100dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/id"
+                    android:background="@drawable/ic_buttonorange"
+                    android:text="andern"
+                    android:textColor="#FFF"
+                    android:theme="@style/button"
+                    android:visibility="invisible" />
+
+            </RelativeLayout>
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

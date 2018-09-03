@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.example.cabanni.lokalpatriot_brackel.Finals;
+import com.example.cabanni.lokalpatriot_brackel.L;
 import com.example.cabanni.lokalpatriot_brackel.MyRecyclerViewAdapter;
 import com.example.cabanni.lokalpatriot_brackel.Pinntext;
 import com.example.cabanni.lokalpatriot_brackel.R;
@@ -74,7 +75,7 @@ public class FragmentShowPinwandFeiern extends Fragment {
 
 
 
-        result = new String();
+        result = new String("default");
         // pinnwandConnecter.sendToServer(bundle.getString("ort"), bundle.getString("kategorie")); // holt den Json String vom Server
 
 
@@ -120,7 +121,7 @@ public class FragmentShowPinwandFeiern extends Fragment {
         public String stringUrl = Finals.urlPinnwandAbfrage;
 
 
-        String jsonString;
+        String jsonString =" json unverändert";
 
 
         public BackgroundTask() {
@@ -138,37 +139,42 @@ public class FragmentShowPinwandFeiern extends Fragment {
                 //  String textParam = "ort=" + URLEncoder.encode(ort, "UTF-8") + "&&kategorie" + URLEncoder.encode(kategorie, "UTF-8");
                 URL url = new URL(Finals.urlPinnwandAbfrage);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-                httpURLConnection.setDoOutput(true);
+               // httpURLConnection.setDoOutput(true);
                 httpURLConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
                 //   httpURLConnection.setFixedLengthStreamingMode(textParam.getBytes().length);
-
-                // Post Variablen zum Server schicken
-                OutputStreamWriter outputStreamWriter = new OutputStreamWriter(httpURLConnection.getOutputStream());
-                // outputStreamWriter.write(textParam);
+                httpURLConnection.setDoOutput(true);
+                httpURLConnection.setDoInput(true);
+                httpURLConnection.setRequestMethod("POST");
 
                 PrintStream ps = new PrintStream(httpURLConnection.getOutputStream());
                 // send your parameters to your site
                 ps.print("ort=" + ort);
                 ps.print("&kategorie=" + kategorie);
-                outputStreamWriter.flush();
-                outputStreamWriter.close();
+
 
                 //Antwort zurück bekommen
-                InputStream inputStream = httpURLConnection.getInputStream();
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-                StringBuilder stringBuilder = new StringBuilder();
-                String line;
+                InputStream inputStream;
 
-                while ((line = bufferedReader.readLine()) != null) {
-                    stringBuilder.append(line);
-                    publishProgress();
 
-                }
+
+                    inputStream = httpURLConnection.getInputStream();
+
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                    StringBuilder stringBuilder = new StringBuilder();
+                    String line;
+
+                    while ((line = bufferedReader.readLine()) != null) {
+                        stringBuilder.append(line);
+                        publishProgress();
+
+                    }  this.jsonString = stringBuilder.toString().trim();
+
+
                 //alles schließen
                 httpURLConnection.disconnect();
                 inputStream.close();
-                outputStreamWriter.close();
-                this.jsonString = stringBuilder.toString().trim();
+                ps.close();
+
 
             } catch (MalformedURLException e) {
                 e.printStackTrace();

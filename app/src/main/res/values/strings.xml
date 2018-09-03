@@ -11,4 +11,5 @@
     <string name="label_editText_beschreibung">Beschreibung:</string>
     <string name="label_editText_phone">Telefon Nr*:</string>
     <string name="pinntextAendern">Text ändern</string>
+    <string name="vorwarnzeit">Vorwarnzeit in Stunden</string>
 </resources>

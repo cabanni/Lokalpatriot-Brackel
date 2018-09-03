@@ -19,7 +19,15 @@
           "client_type": 1,
           "android_info": {
             "package_name": "xyz.lokalpatriot.cabanni.lokalpatriot_brackel",
-            "certificate_hash": "8FAAF563A637313372D22FF8B1F55F52E7210DB5"
+            "certificate_hash": "8faaf563a637313372d22ff8b1f55f52e7210db5"
+          }
+        },
+        {
+          "client_id": "204969435561-uqfoshhsvta0o80a7e6rcsm682rdtse1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "xyz.lokalpatriot.cabanni.lokalpatriot_brackel",
+            "certificate_hash": "eba62a66fbb2a52a2db9859fca4693edd1774642"
           }
         },
         {

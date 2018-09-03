@@ -6,7 +6,7 @@
 
     android:layout_centerHorizontal="true"
     android:layout_marginTop="5dp"
-    android:orientation="horizontal">
+    android:orientation="vertical">
 
 
     <android.support.v7.widget.CardView
@@ -16,10 +16,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_margin="10dp"
-
-
         card_view:cardBackgroundColor="@color/colorAccent"
-        card_view:cardCornerRadius="4dp">
+
+
+        card_view:cardCornerRadius="4dp"
+        card_view:cardElevation="10dp">
 
 
         <RelativeLayout
@@ -27,7 +28,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
 
 
             <TextView
@@ -44,94 +44,95 @@
                 android:padding="5dp"
                 android:textAlignment="center"
 
-            />
+                />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/ueberschrift"
                 android:layout_margin="10dp">
-            <TextView
-                android:id="@+id/fuerDatum"
 
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                <TextView
+                    android:id="@+id/fuerDatum"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
 
 
+                    android:elevation="4dp"
+                    android:text="Am" />
 
-                android:text="Am"
-                android:elevation="4dp"/>
+                <TextView
+                    android:id="@+id/Datum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/fuerDatum"
 
-            <TextView
-                android:elevation="4dp"
-                android:id="@+id/Datum"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:layout_toRightOf="@id/fuerDatum"
-                android:text="TextView" />
+                    android:elevation="4dp"
+                    android:text="TextView" />
 
 
                 <TextView
-                android:id="@+id/fuerUser"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@id/Datum"
-                android:text="schrieb" />
+                    android:id="@+id/fuerUser"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@id/Datum"
+                    android:text="schrieb" />
 
 
-            <TextView
-                android:id="@+id/User"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/Datum"
-                android:layout_toRightOf="@+id/fuerUser"
+                <TextView
+                    android:id="@+id/User"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/Datum"
+                    android:layout_toRightOf="@+id/fuerUser"
 
 
-                android:text="TextView" />
+                    android:text="TextView" />
 
 
-            <TextView
-                android:id="@+id/textLang"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@id/User" />
+                <TextView
+                    android:id="@+id/textLang"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@id/User" />
 
                 <TextView
                     android:id="@+id/id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/textLang"
-                    android:visibility="visible" />
-            <Button
-                android:layout_centerHorizontal="true"
-                android:background="@drawable/ic_buttonorange"
-                android:textColor="#FFFFFFFF"
-                android:id="@+id/loeschen"
-                style="@style/button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/id"
-                android:text="löschen"
-                android:visibility="invisible" />
+                    android:visibility="invisible" />
 
-            <Button
+                <Button
+                    android:id="@+id/loeschen"
+                    style="@style/button"
+                    android:layout_width="100dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/id"
+                    android:background="@drawable/ic_buttonorange"
+                    android:text="löschen"
+                    android:textColor="#FFF"
+                    android:visibility="invisible" />
 
-                android:id="@+id/aendern"
-                style="@style/button"
-                android:background="@drawable/ic_buttonorange"
-                android:layout_centerHorizontal="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/id"
-                android:layout_toRightOf="@+id/loeschen"
-                android:text="andern"
-                android:theme="@style/button"
-                android:visibility="invisible" />
+                <Button
 
-        </RelativeLayout>
+                    android:id="@+id/aendern"
+                    style="@style/button"
+                    android:layout_width="100dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/id"
+                    android:background="@drawable/ic_buttonorange"
+                    android:text="andern"
+                    android:textColor="#FFF"
+                    android:theme="@style/button"
+                    android:visibility="invisible" />
+
+            </RelativeLayout>
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 
